@@ -1,0 +1,124 @@
+.contact-page {
+  padding: var(--section-padding-md) 0;
+}
+
+.contact-page__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.contact-page__info h2 {
+  margin: 10px 0 16px;
+}
+
+.contact-page__details {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-page__details li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--color-primary);
+}
+
+.contact-page__details svg {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.contact-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--color-light-grey);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+}
+
+.contact-page__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contact-page__form input,
+.contact-page__form textarea {
+  width: 100%;
+  border: 1.5px solid rgba(43, 38, 32, 0.15);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  padding: 14px 16px;
+  font-family: var(--font-base);
+  font-size: 14px;
+  color: var(--color-primary);
+  resize: vertical;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.contact-page__form input:focus,
+.contact-page__form textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(62, 92, 65, 0.12);
+}
+
+.contact-page__form button {
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+/* footer column variant */
+.footer-col__items {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 18px 0;
+}
+
+.footer-col__label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.footer-col__item p {
+  font-size: 13px;
+  color: rgba(43, 38, 32, 0.65);
+}
+
+.footer-col__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  border-bottom: 1.5px solid rgba(43, 38, 32, 0.4);
+  padding-bottom: 2px;
+  transition: border-color var(--transition-base), gap var(--transition-base);
+}
+
+.footer-col__cta:hover {
+  border-color: var(--color-primary);
+  gap: 9px;
+}
+
+@media (max-width: 900px) {
+  .contact-page__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-page__row {
+    grid-template-columns: 1fr;
+  }
+}

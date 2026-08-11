@@ -1,0 +1,116 @@
+.focus {
+  padding: var(--section-padding-md) 0;
+  background: var(--color-white);
+}
+
+.focus__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: stretch;
+}
+
+.focus__heading {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.focus__item {
+  display: flex;
+  gap: 20px;
+  padding: 24px 18px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.focus__item:hover {
+  background: var(--color-light-grey);
+  transform: translateX(4px);
+  border-color: var(--border);
+}
+
+.focus__item:first-child {
+  padding-top: 22px;
+}
+
+.focus__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  color: var(--color-accent);
+  transition: background var(--transition-base), color var(--transition-base), transform var(--transition-base);
+}
+
+.focus__item:hover .focus__icon {
+  background: var(--primary);
+  color: var(--surface);
+  transform: scale(1.06);
+}
+
+.focus__item h3 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+
+.focus__item p {
+  font-size: 14px;
+}
+
+.focus__image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.focus__image-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 550px;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+  position: relative;
+}
+
+.focus__image:hover .focus__image-wrapper {
+  transform: scale(1.015);
+  box-shadow: var(--shadow-lg);
+}
+
+.focus__image-wrapper .placeholder-img {
+  border-radius: var(--radius-lg) !important;
+  width: 100%;
+  height: 100%;
+}
+
+.focus__image-wrapper .placeholder-img-real,
+.focus__image-wrapper img {
+  border-radius: var(--radius-lg) !important;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .focus__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .focus__image {
+    order: -1;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .focus__image-wrapper {
+    min-height: 400px;
+  }
+}
