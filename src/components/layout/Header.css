@@ -3,7 +3,7 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  background: rgba(251, 247, 239, 0.97);
+  background: rgba(255, 255, 255, 0.97);
   border-bottom: 1px solid transparent;
   transition: box-shadow var(--transition-base), border-color var(--transition-base);
 }
@@ -108,9 +108,14 @@
   width: 100%;
 }
 
-.site-header__cta {
+.site-header__nav a.site-header__cta {
+  color: var(--color-white);
   padding: 12px 26px;
   font-size: 12px;
+}
+
+.site-header__nav a.site-header__cta:hover {
+  color: var(--color-white);
 }
 
 .site-header__toggle {

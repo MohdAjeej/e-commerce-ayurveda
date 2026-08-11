@@ -50,7 +50,7 @@
 .contact-page__form input,
 .contact-page__form textarea {
   width: 100%;
-  border: 1.5px solid rgba(43, 38, 32, 0.15);
+  border: 1.5px solid rgba(27, 27, 27, 0.15);
   border-radius: var(--radius-sm);
   background: var(--color-white);
   padding: 14px 16px;
@@ -65,7 +65,7 @@
 .contact-page__form textarea:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 4px rgba(62, 92, 65, 0.12);
+  box-shadow: 0 0 0 4px rgba(35, 102, 34, 0.12);
 }
 
 .contact-page__form button {
@@ -93,7 +93,7 @@
 
 .footer-col__item p {
   font-size: 13px;
-  color: rgba(43, 38, 32, 0.65);
+  color: rgba(27, 27, 27, 0.65);
 }
 
 .footer-col__cta {
@@ -103,7 +103,7 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--color-primary);
-  border-bottom: 1.5px solid rgba(43, 38, 32, 0.4);
+  border-bottom: 1.5px solid rgba(27, 27, 27, 0.4);
   padding-bottom: 2px;
   transition: border-color var(--transition-base), gap var(--transition-base);
 }

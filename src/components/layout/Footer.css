@@ -15,12 +15,12 @@
   color: var(--color-primary);
   padding-bottom: 16px;
   margin-bottom: 22px;
-  border-bottom: 1px solid rgba(43, 38, 32, 0.3);
+  border-bottom: 1px solid rgba(27, 27, 27, 0.3);
 }
 
 .footer-col p {
   font-size: 14px;
-  color: rgba(43, 38, 32, 0.65);
+  color: rgba(27, 27, 27, 0.65);
 }
 
 .footer-col__links {
@@ -32,7 +32,7 @@
 
 .footer-col__links a {
   font-size: 14px;
-  color: rgba(43, 38, 32, 0.75);
+  color: rgba(27, 27, 27, 0.75);
   transition: color var(--transition-base);
 }
 
