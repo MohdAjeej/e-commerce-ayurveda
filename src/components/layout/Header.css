@@ -113,7 +113,7 @@
   align-items: center;
 }
 
-.site-header__login {
+.site-header__nav a.site-header__login {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -124,7 +124,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-.site-header__login:hover {
+.site-header__nav a.site-header__login:hover {
   background: var(--accent);
   color: var(--color-white);
   box-shadow: var(--shadow-brand);
