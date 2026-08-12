@@ -27,17 +27,14 @@
 }
 
 .hero__content h1 {
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  font-weight: 700;
+  color: var(--text);
 }
 
 .hero__desc {
   margin-top: 22px;
   max-width: 480px;
-  color: #ffffff;
+  color: var(--muted);
   font-size: 17px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .hero__actions {
