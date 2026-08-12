@@ -90,21 +90,13 @@
     border-radius: var(--radius-md);
   }
 
-  .info-band__box,
-  .info-band--right .info-band__box {
+  .info-band__box {
     order: 1;
     padding: 44px 28px;
   }
 
-  .info-band__image,
-  .info-band--right .info-band__image {
+  .info-band__image {
     order: 2;
     aspect-ratio: 16 / 9;
-  }
-
-  .info-band--right {
-    margin-top: 0;
-    margin-left: 0;
-    width: 100%;
   }
 }

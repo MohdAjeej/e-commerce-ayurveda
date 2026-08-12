@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { images } from "../../assets/images";
-import PlaceholderImage from "../common/PlaceholderImage";
+import heroAnimation from "../../assets/animation.mp4";
 import "./Hero.css";
 
 export default function Hero() {
@@ -32,7 +31,14 @@ export default function Hero() {
 
         <div className="hero__art hero-enter" style={{ "--enter-delay": "140ms" }}>
           <div className="hero__art-img">
-            <PlaceholderImage image={images.heroDecor} rounded />
+            <video
+              className="hero__art-video"
+              src={heroAnimation}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
           </div>
         </div>
       </div>
