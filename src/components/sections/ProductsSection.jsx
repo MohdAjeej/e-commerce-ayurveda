@@ -17,10 +17,12 @@ export default function ProductsSection({ full = false }) {
         <div className="products__grid">
           {list.map((product, i) => (
             <Reveal key={product.id} className="product-card" delay={i * 80}>
-              <div className="product-card__image">
-                <PlaceholderImage image={product.image} />
-              </div>
-              <h3 className="product-card__name">{product.name}</h3>
+              <Link to={`/products/${product.id}`} className="product-card__image">
+                <PlaceholderImage image={product.image} alt={product.name} />
+              </Link>
+              <Link to={`/products/${product.id}`} className="product-card__name-link">
+                <h3 className="product-card__name">{product.name}</h3>
+              </Link>
               {full && <p className="product-card__desc">{product.description}</p>}
               <Link to="/contact" className="product-card__cta">
                 Enquire Now

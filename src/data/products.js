@@ -1,34 +1,59 @@
-import { images } from "../assets/images";
+import { getProductImages, getPrimaryImage } from "./productImages";
 
-export const PRODUCTS = [
+const PRODUCT_INFO = [
   {
-    id: "immunity",
+    id: "acacia-honey",
+    name: "Acacia Honey",
+    description: "Light, delicately sweet raw honey harvested from Acacia blossoms.",
+  },
+  {
+    id: "ajwain-honey",
+    name: "Ajwain Honey",
+    description: "Raw honey infused with ajwain (carom seed) for a warm, digestive edge.",
+  },
+  {
+    id: "fennel-honey",
+    name: "Fennel Honey",
+    description: "Raw honey infused with fennel for a mellow, aromatic sweetness.",
+  },
+  {
+    id: "jamun-honey",
+    name: "Jamun Honey",
+    description: "Raw honey sourced from Jamun blossoms, deep and rich in flavor.",
+  },
+  {
+    id: "kesar-honey",
+    name: "Kesar Honey",
+    description: "Raw honey infused with saffron (kesar) for a golden, fragrant finish.",
+  },
+  {
+    id: "multiflora-honey",
+    name: "Multiflora Honey",
+    description: "Raw honey drawn from a mix of wildflower blossoms for a rounded flavor.",
+  },
+  {
+    id: "breath-pure-lemon",
+    name: "Breath Pure Lemon",
+    description: "A lemon-flavored breath freshener crafted with natural ingredients.",
+  },
+  {
+    id: "breath-pure-rose",
+    name: "Breath Pure Rose",
+    description: "A rose-flavored breath freshener crafted with natural ingredients.",
+  },
+  {
+    id: "immunity-booster",
     name: "Immunity Booster",
     description: "A daily herbal blend to strengthen natural defenses and everyday vitality.",
-    image: images.products.immunity,
-  },
-  {
-    id: "inch-loss",
-    name: "Inch Loss 30 Days",
-    description: "A 30-day Ayurvedic program supporting healthy metabolism and weight balance.",
-    image: images.products.inchLoss,
-  },
-  {
-    id: "honey",
-    name: "Himalayan Pure Honey",
-    description: "Raw, unprocessed honey sourced from the pristine Himalayan foothills.",
-    image: images.products.honey,
-  },
-  {
-    id: "herbal-mix",
-    name: "Herbal Infusion Mix",
-    description: "A soothing infusion of traditional herbs for daily calm and digestion.",
-    image: images.products.herbalMix,
-  },
-  {
-    id: "detox",
-    name: "Detox Blend",
-    description: "A gentle cleansing formula to reset and rebalance the body naturally.",
-    image: images.products.detox,
   },
 ];
+
+export const PRODUCTS = PRODUCT_INFO.map((product) => ({
+  ...product,
+  images: getProductImages(product.id),
+  image: getPrimaryImage(product.id),
+}));
+
+export function getProductById(id) {
+  return PRODUCTS.find((product) => product.id === id) || null;
+}
