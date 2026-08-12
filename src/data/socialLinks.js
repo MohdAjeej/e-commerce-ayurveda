@@ -2,7 +2,7 @@ import { FacebookIcon, YoutubeIcon, InstagramIcon, LinkedinIcon } from "../compo
 
 export const SOCIAL_LINKS = [
   { icon: FacebookIcon, label: "Facebook", href: "https://facebook.com" },
-  { icon: YoutubeIcon, label: "Youtube", href: "https://youtube.com" },
-  { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com" },
+  { icon: YoutubeIcon, label: "Youtube", href: "https://www.youtube.com/playlist?list=PLOHRKxn5ydh3BUCbHgvUVSpLaV5pQT5_o" },
+  { icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com/spreading_smiles_global?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" },
   { icon: LinkedinIcon, label: "LinkedIn", href: "https://linkedin.com" },
 ];
