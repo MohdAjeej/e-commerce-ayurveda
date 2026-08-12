@@ -1,0 +1,16 @@
+.cart-page {
+  padding-bottom: var(--section-padding-md);
+}
+
+.cart-page__inner {
+  max-width: 760px;
+}
+
+@media (max-width: 640px) {
+  .cart-page__inner .cart-contents__summary {
+    position: sticky;
+    bottom: 0;
+    background: var(--surface);
+    padding-bottom: 20px;
+  }
+}

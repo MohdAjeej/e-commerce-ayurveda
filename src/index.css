@@ -203,6 +203,11 @@ p {
   box-shadow: var(--shadow-sm);
 }
 
+.btn--sm {
+  padding: 11px 20px;
+  font-size: 13px;
+}
+
 .section-heading {
   text-align: center;
   color: var(--color-accent);

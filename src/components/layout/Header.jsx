@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Leaf, Menu, X } from "lucide-react";
+import { Leaf, Menu, X, ShoppingBag, LogIn } from "lucide-react";
 import { NAV_LINKS } from "../../data/navLinks";
+import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
+import AccountMenu from "./AccountMenu";
 import "./Header.css";
 
 const SPY_IDS = ["wellness", "ayurveda"];
@@ -10,7 +13,21 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("");
+  const [bump, setBump] = useState(false);
   const location = useLocation();
+  const cart = useCart();
+  const { isAuthenticated, loading } = useAuth();
+  const prevQty = useRef(cart.totalQuantity);
+
+  useEffect(() => {
+    if (cart.totalQuantity !== prevQty.current) {
+      setBump(true);
+      prevQty.current = cart.totalQuantity;
+      const timer = setTimeout(() => setBump(false), 300);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [cart.totalQuantity]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -81,18 +98,34 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <Link to="/contact" className="btn site-header__cta" onClick={() => setMenuOpen(false)}>
-            Contact Us
-          </Link>
+          <div className="site-header__auth">
+            {!loading && (isAuthenticated ? (
+              <AccountMenu onNavigate={() => setMenuOpen(false)} />
+            ) : (
+              <Link to="/login" className="btn site-header__login" onClick={() => setMenuOpen(false)}>
+                <LogIn size={16} strokeWidth={2} />
+                Login
+              </Link>
+            ))}
+          </div>
         </nav>
 
-        <button
-          className="site-header__toggle"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="site-header__actions">
+          <button type="button" className="site-header__cart" aria-label="Open cart" onClick={cart.openDrawer}>
+            <ShoppingBag size={22} strokeWidth={1.75} />
+            {cart.totalQuantity > 0 && (
+              <span className={`site-header__cart-badge ${bump ? "is-bumping" : ""}`}>{cart.totalQuantity}</span>
+            )}
+          </button>
+
+          <button
+            className="site-header__toggle"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
     </header>
   );
