@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { images } from "../../assets/images";
 import PlaceholderImage from "../common/PlaceholderImage";
 import Reveal from "../common/Reveal";
 import { TESTIMONIALS } from "../../data/testimonials";
@@ -24,7 +23,7 @@ export default function TestimonialSection() {
         <Reveal className="testimonial__card">
           <div className="testimonial__body" key={index}>
             <div className="testimonial__avatar">
-              <PlaceholderImage image={images.testimonial} rounded showLabel={false} />
+              <PlaceholderImage image={active.photo} alt={active.name} rounded showLabel={false} />
             </div>
 
             <Quote className="testimonial__quote-icon" size={34} strokeWidth={1.25} />

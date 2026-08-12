@@ -107,6 +107,4 @@ export const images = {
     ratio: "3 / 4",
     label: "Areas of focus",
   },
-
-  testimonial: { icon: "quote", tone: "mint", ratio: "1 / 1", label: "Customer testimonial" },
 };
