@@ -246,13 +246,18 @@
   }
 }
 
+@media (max-width: 768px) {
+  .checkout-form__row--three {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 640px) {
   .checkout-main {
     padding: 22px;
   }
 
-  .checkout-form__row,
-  .checkout-form__row--three {
+  .checkout-form__row {
     grid-template-columns: 1fr;
   }
 }

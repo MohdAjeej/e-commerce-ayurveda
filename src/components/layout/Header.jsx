@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Leaf, Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { NAV_LINKS } from "../../data/navLinks";
 import { useCart } from "../../context/CartContext";
+import logo from "../../assets/logo .jpeg";
 import "./Header.css";
 
 const SPY_IDS = ["wellness", "ayurveda"];
@@ -72,13 +73,7 @@ export default function Header() {
     <header className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}>
       <div className="container site-header__inner">
         <Link to="/" className="site-header__brand" onClick={() => setMenuOpen(false)}>
-          <span className="site-header__mark">
-            <Leaf size={20} strokeWidth={1.5} />
-          </span>
-          <span className="site-header__wordmark">
-            <strong>OJAS</strong>
-            <small>Himalayan Herbs</small>
-          </span>
+          <img src={logo} alt="OJAS Himalayan Herbs" className="site-header__logo" />
         </Link>
 
         <nav className={`site-header__nav ${menuOpen ? "is-open" : ""}`}>

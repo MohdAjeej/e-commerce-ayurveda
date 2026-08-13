@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Truck, Wallet, Smartphone } from "lucide-react";
+import { Truck } from "lucide-react";
 import Reveal from "../components/common/Reveal";
 import PageIntro from "../components/common/PageIntro";
 import PlaceholderImage from "../components/common/PlaceholderImage";
@@ -31,7 +31,6 @@ export default function Checkout() {
   const [customer, setCustomer] = useState(emptyCustomer);
   const [address, setAddress] = useState(emptyAddress);
   const [errors, setErrors] = useState({});
-  const [paymentMethod, setPaymentMethod] = useState("cod");
   const [placing, setPlacing] = useState(false);
 
   const deliveryCharge = calculateDelivery(address.pincode, subtotal);
@@ -81,34 +80,35 @@ export default function Checkout() {
 
   const handlePlaceOrder = async () => {
     setPlacing(true);
-    try {
-      const data = await apiFetch("/orders/create", {
-        method: "POST",
-        body: {
-          customer,
-          shippingAddress: address,
-          items: activeItems.map((item) => ({ productId: item.id, quantity: item.quantity })),
-          paymentMethod,
-        },
-      });
+    
+    // Simulate order creation without backend API
+    const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    
+    const order = {
+      id: orderId,
+      customer,
+      shippingAddress: address,
+      items: activeItems,
+      subtotal,
+      deliveryCharge,
+      total,
+      paymentMethod: "cod",
+      orderStatus: "confirmed",
+      createdAt: Date.now(),
+    };
 
-      let { order } = data;
-      if (paymentMethod !== "cod") {
-        const confirmed = await apiFetch("/orders/confirm-payment", {
-          method: "POST",
-          body: { orderId: data.orderId },
-        });
-        order = confirmed.order;
-      }
+    // Save to localStorage for order confirmation page
+    localStorage.setItem(`order_${orderId}`, JSON.stringify(order));
 
-      if (cart.buyNowItem) cart.clearBuyNowItem();
-      else cart.clearCart();
-      navigate(`/order-confirmation/${data.orderId}`, { state: { order } });
-    } catch (err) {
-      toast.error(err.message || "Unable to place order. Please try again.");
-    } finally {
+    // Clear cart
+    if (cart.buyNowItem) cart.clearBuyNowItem();
+    else cart.clearCart();
+    
+    // Navigate to confirmation
+    setTimeout(() => {
       setPlacing(false);
-    }
+      navigate(`/order-confirmation/${orderId}`, { state: { order } });
+    }, 1000);
   };
 
   return (
@@ -233,24 +233,14 @@ export default function Checkout() {
               <div className="checkout-form">
                 <h2 className="checkout-form__section-title">Payment</h2>
                 <p className="checkout-form__note">
-                  This is a simulated payment step for demonstration — no real payment gateway is connected.
+                  We only accept Cash on Delivery at this time.
                 </p>
 
                 <div className="checkout-payment-options">
-                  <label className={`checkout-payment-option ${paymentMethod === "cod" ? "is-selected" : ""}`}>
-                    <input type="radio" name="payment" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} />
+                  <label className="checkout-payment-option is-selected">
+                    <input type="radio" name="payment" checked={true} readOnly />
                     <Truck size={18} />
                     <span>Cash on Delivery</span>
-                  </label>
-                  <label className={`checkout-payment-option ${paymentMethod === "upi" ? "is-selected" : ""}`}>
-                    <input type="radio" name="payment" checked={paymentMethod === "upi"} onChange={() => setPaymentMethod("upi")} />
-                    <Smartphone size={18} />
-                    <span>UPI (simulated)</span>
-                  </label>
-                  <label className={`checkout-payment-option ${paymentMethod === "card" ? "is-selected" : ""}`}>
-                    <input type="radio" name="payment" checked={paymentMethod === "card"} onChange={() => setPaymentMethod("card")} />
-                    <Wallet size={18} />
-                    <span>Card (simulated)</span>
                   </label>
                 </div>
 

@@ -3,7 +3,6 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { CheckCircle2 } from "lucide-react";
 import PlaceholderImage from "../components/common/PlaceholderImage";
 import PageLoader from "../components/common/PageLoader";
-import { apiFetch } from "../utils/api";
 import { formatPrice } from "../utils/formatPrice";
 import "./OrderConfirmation.css";
 
@@ -15,18 +14,13 @@ export default function OrderConfirmation() {
 
   useEffect(() => {
     if (order) return;
-    let cancelled = false;
-    (async () => {
-      try {
-        const data = await apiFetch(`/orders/${orderId}`);
-        if (!cancelled) setOrder(data.order);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
+    
+    // Try to load order from localStorage (frontend-only mode)
+    const storedOrder = localStorage.getItem(`order_${orderId}`);
+    if (storedOrder) {
+      setOrder(JSON.parse(storedOrder));
+    }
+    setLoading(false);
   }, [orderId, order]);
 
   if (loading) return <PageLoader />;
@@ -58,7 +52,7 @@ export default function OrderConfirmation() {
         <div className="order-confirmation__card">
           <ul className="order-confirmation__list">
             {order.items.map((item) => (
-              <li key={item.productId} className="order-confirmation__item">
+              <li key={item.id || item.productId} className="order-confirmation__item">
                 <div className="order-confirmation__image">
                   <PlaceholderImage image={item.image} alt={item.name} />
                 </div>
