@@ -89,6 +89,15 @@
   font-weight: 700;
 }
 
+.order-confirmation__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
 .order-confirmation__total {
   display: flex;
   align-items: center;

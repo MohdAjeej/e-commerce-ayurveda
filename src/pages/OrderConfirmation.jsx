@@ -36,8 +36,8 @@ export default function OrderConfirmation() {
       <section className="order-confirmation">
         <div className="container order-confirmation__empty">
           <h1>Order not found</h1>
-          <Link to="/orders" className="btn">
-            View Your Orders
+          <Link to="/products" className="btn">
+            Explore Products
           </Link>
         </div>
       </section>
@@ -50,15 +50,15 @@ export default function OrderConfirmation() {
         <span className="order-confirmation__icon">
           <CheckCircle2 size={40} strokeWidth={1.5} />
         </span>
-        <h1>Order Confirmed!</h1>
+        <h1>Order Placed Successfully</h1>
         <p>
-          Thank you — your order <strong>{order.id}</strong> has been placed successfully.
+          Thank you for your order! Your order <strong>{order.id}</strong> has been placed successfully.
         </p>
 
         <div className="order-confirmation__card">
           <ul className="order-confirmation__list">
             {order.items.map((item) => (
-              <li key={`${item.id}::${item.variant ?? ""}`} className="order-confirmation__item">
+              <li key={item.productId} className="order-confirmation__item">
                 <div className="order-confirmation__image">
                   <PlaceholderImage image={item.image} alt={item.name} />
                 </div>
@@ -70,27 +70,35 @@ export default function OrderConfirmation() {
               </li>
             ))}
           </ul>
+          <div className="order-confirmation__line">
+            <span>Subtotal</span>
+            <span>{formatPrice(order.subtotal)}</span>
+          </div>
+          <div className="order-confirmation__line">
+            <span>Delivery</span>
+            <span>{order.deliveryCharge === 0 ? "Free" : formatPrice(order.deliveryCharge)}</span>
+          </div>
           <div className="order-confirmation__total">
             <span>Total</span>
-            <strong>{formatPrice(order.subtotal)}</strong>
+            <strong>{formatPrice(order.total)}</strong>
           </div>
           <div className="order-confirmation__address">
-            <h3>Delivery Address</h3>
+            <h3>We'll deliver your order to:</h3>
+            <p>{order.customer.fullName}</p>
             <p>
-              {order.address.fullName}, {order.address.line1}
-              {order.address.line2 ? `, ${order.address.line2}` : ""}, {order.address.city}, {order.address.state} -{" "}
-              {order.address.pincode}
+              {order.shippingAddress.houseNumber}, {order.shippingAddress.street}
+              {order.shippingAddress.landmark ? `, near ${order.shippingAddress.landmark}` : ""}
             </p>
-            <p>Phone: {order.address.phone}</p>
+            <p>
+              {order.shippingAddress.district} - {order.shippingAddress.pincode}
+            </p>
+            <p>Mobile: {order.customer.mobile}</p>
           </div>
         </div>
 
         <div className="order-confirmation__actions">
-          <Link to="/products" className="btn btn-outline">
+          <Link to="/products" className="btn">
             Continue Shopping
-          </Link>
-          <Link to="/orders" className="btn">
-            View Orders
           </Link>
         </div>
       </div>

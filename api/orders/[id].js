@@ -1,4 +1,3 @@
-import { requireAuth } from "../_lib/requireAuth.js";
 import { getOrder } from "../_lib/store.js";
 
 export default async function handler(req, res) {
@@ -7,13 +6,10 @@ export default async function handler(req, res) {
     return;
   }
 
-  const user = requireAuth(req, res);
-  if (!user) return;
-
   const { id } = req.query;
   const order = getOrder(id);
 
-  if (!order || order.userId !== user.id) {
+  if (!order) {
     res.status(404).json({ message: "Order not found" });
     return;
   }

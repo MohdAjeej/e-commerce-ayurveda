@@ -6,8 +6,6 @@ import Reveal from "../components/common/Reveal";
 import QuantityStepper from "../components/common/QuantityStepper";
 import { getProductById } from "../data/products";
 import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext";
-import { stashPendingAction } from "../utils/pendingAction";
 import { formatPrice } from "../utils/formatPrice";
 import "./ProductDetail.css";
 
@@ -18,7 +16,6 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
   const cart = useCart();
-  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   if (!product) {
@@ -45,16 +42,6 @@ export default function ProductDetail() {
   };
 
   const handleBuyNow = () => {
-    if (!isAuthenticated) {
-      stashPendingAction({
-        type: "BUY_NOW",
-        product: { id: product.id, name: product.name, image: product.image, price: product.price },
-        quantity,
-        redirectTo: "/checkout",
-      });
-      navigate("/login", { state: { from: "/checkout" } });
-      return;
-    }
     cart.setBuyNowItem(product, quantity);
     navigate("/checkout");
   };

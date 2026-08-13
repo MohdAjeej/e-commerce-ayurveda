@@ -3,23 +3,15 @@ import { ShoppingBag, X } from "lucide-react";
 import PlaceholderImage from "../common/PlaceholderImage";
 import QuantityStepper from "../common/QuantityStepper";
 import { useCart } from "../../context/CartContext";
-import { useAuth } from "../../context/AuthContext";
-import { stashPendingAction } from "../../utils/pendingAction";
 import { formatPrice } from "../../utils/formatPrice";
 import "./CartContents.css";
 
 export default function CartContents({ onNavigate, compact = false }) {
   const cart = useCart();
-  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
     onNavigate?.();
-    if (!isAuthenticated) {
-      stashPendingAction({ type: "CHECKOUT", redirectTo: "/checkout" });
-      navigate("/login", { state: { from: "/checkout" } });
-      return;
-    }
     navigate("/checkout");
   };
 

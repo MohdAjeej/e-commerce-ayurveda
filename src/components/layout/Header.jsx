@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Leaf, Menu, X, ShoppingBag, LogIn } from "lucide-react";
+import { Leaf, Menu, X, ShoppingBag } from "lucide-react";
 import { NAV_LINKS } from "../../data/navLinks";
 import { useCart } from "../../context/CartContext";
-import { useAuth } from "../../context/AuthContext";
-import AccountMenu from "./AccountMenu";
 import "./Header.css";
 
 const SPY_IDS = ["wellness", "ayurveda"];
@@ -16,7 +14,6 @@ export default function Header() {
   const [bump, setBump] = useState(false);
   const location = useLocation();
   const cart = useCart();
-  const { isAuthenticated, loading } = useAuth();
   const prevQty = useRef(cart.totalQuantity);
 
   useEffect(() => {
@@ -98,16 +95,6 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <div className="site-header__auth">
-            {!loading && (isAuthenticated ? (
-              <AccountMenu onNavigate={() => setMenuOpen(false)} />
-            ) : (
-              <Link to="/login" className="btn site-header__login" onClick={() => setMenuOpen(false)}>
-                <LogIn size={16} strokeWidth={2} />
-                Login
-              </Link>
-            ))}
-          </div>
         </nav>
 
         <div className="site-header__actions">

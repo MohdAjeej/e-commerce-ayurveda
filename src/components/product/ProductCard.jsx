@@ -4,14 +4,11 @@ import { ShoppingBag, Zap } from "lucide-react";
 import PlaceholderImage from "../common/PlaceholderImage";
 import Reveal from "../common/Reveal";
 import { useCart } from "../../context/CartContext";
-import { useAuth } from "../../context/AuthContext";
-import { stashPendingAction } from "../../utils/pendingAction";
 import { formatPrice } from "../../utils/formatPrice";
 import "./ProductCard.css";
 
 export default function ProductCard({ product, showDescription = false, delay = 0 }) {
   const cart = useCart();
-  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [adding, setAdding] = useState(false);
 
@@ -26,16 +23,6 @@ export default function ProductCard({ product, showDescription = false, delay = 
   const handleBuyNow = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!isAuthenticated) {
-      stashPendingAction({
-        type: "BUY_NOW",
-        product: { id: product.id, name: product.name, image: product.image, price: product.price },
-        quantity: 1,
-        redirectTo: "/checkout",
-      });
-      navigate("/login", { state: { from: "/checkout" } });
-      return;
-    }
     cart.setBuyNowItem(product, 1);
     navigate("/checkout");
   };

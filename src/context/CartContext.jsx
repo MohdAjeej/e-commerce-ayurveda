@@ -1,26 +1,13 @@
-import { createContext, useContext, useEffect, useMemo, useReducer, useRef } from "react";
-import { useAuth } from "./AuthContext";
+import { createContext, useContext, useEffect, useMemo, useReducer } from "react";
 import { useToast } from "./ToastContext";
-import { cartKeyFor, loadCart, saveCart, clearCartStorage, loadBuyNowItem, saveBuyNowItem, GUEST_KEY } from "../utils/cartStorage";
+import { loadCart, saveCart, loadBuyNowItem, saveBuyNowItem, GUEST_KEY } from "../utils/cartStorage";
 
 const CartContext = createContext(null);
 
 const itemKey = (id, variant) => `${id}::${variant ?? ""}`;
 
-function mergeItems(base, incoming) {
-  const map = new Map();
-  [...base, ...incoming].forEach((item) => {
-    const key = itemKey(item.id, item.variant);
-    if (map.has(key)) map.get(key).quantity += item.quantity;
-    else map.set(key, { ...item });
-  });
-  return [...map.values()];
-}
-
 function cartReducer(state, action) {
   switch (action.type) {
-    case "HYDRATE":
-      return { ...state, items: action.items };
     case "ADD_ITEM": {
       const { product, quantity, variant } = action;
       const key = itemKey(product.id, variant);
@@ -69,38 +56,16 @@ function cartReducer(state, action) {
 }
 
 export function CartProvider({ children }) {
-  const { user } = useAuth();
   const toast = useToast();
   const [state, dispatch] = useReducer(cartReducer, {
-    items: [],
+    items: loadCart(GUEST_KEY),
     buyNowItem: loadBuyNowItem(),
     isDrawerOpen: false,
   });
-  const prevUserId = useRef(undefined);
 
   useEffect(() => {
-    const currentKey = cartKeyFor(user?.id);
-
-    if (user?.id && prevUserId.current !== user.id) {
-      const guestItems = loadCart(GUEST_KEY);
-      if (guestItems.length > 0) {
-        const userItems = loadCart(currentKey);
-        const merged = mergeItems(userItems, guestItems);
-        saveCart(currentKey, merged);
-        clearCartStorage(GUEST_KEY);
-        dispatch({ type: "HYDRATE", items: merged });
-        prevUserId.current = user.id;
-        return;
-      }
-    }
-
-    dispatch({ type: "HYDRATE", items: loadCart(currentKey) });
-    prevUserId.current = user?.id ?? null;
-  }, [user?.id]);
-
-  useEffect(() => {
-    saveCart(cartKeyFor(user?.id), state.items);
-  }, [state.items, user?.id]);
+    saveCart(GUEST_KEY, state.items);
+  }, [state.items]);
 
   useEffect(() => {
     saveBuyNowItem(state.buyNowItem);
