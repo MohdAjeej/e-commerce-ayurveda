@@ -78,37 +78,67 @@ export default function Checkout() {
     if (validateDetails()) setStep("payment");
   };
 
+
+
   const handlePlaceOrder = async () => {
-    setPlacing(true);
-    
-    // Simulate order creation without backend API
-    const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-    
-    const order = {
-      id: orderId,
-      customer,
-      shippingAddress: address,
-      items: activeItems,
-      subtotal,
-      deliveryCharge,
-      total,
-      paymentMethod: "cod",
-      orderStatus: "confirmed",
-      createdAt: Date.now(),
-    };
+    try {
+      setPlacing(true);
 
-    // Save to localStorage for order confirmation page
-    localStorage.setItem(`order_${orderId}`, JSON.stringify(order));
+      // 1. Create order from backend
+      const order = await apiFetch("/payment/create-order", {
+        method: "POST",
+        body: { amount: total }
+      });
 
-    // Clear cart
-    if (cart.buyNowItem) cart.clearBuyNowItem();
-    else cart.clearCart();
-    
-    // Navigate to confirmation
-    setTimeout(() => {
+
+      // const order = {
+      //   id: orderId,
+      //   customer,
+      //   shippingAddress: address,
+      //   items: activeItems,
+      //   subtotal,
+      //   deliveryCharge,
+      //   total,
+      //   paymentMethod: "cod",
+      //   orderStatus: "confirmed",
+      //   createdAt: Date.now(),
+      // };
+
+      // 2. Open Razorpay
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY,
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.id,
+
+        handler: async function (response) {
+          // 3. Verify payment
+          await apiFetch("/payment/verify-payment", {
+            method: "POST",
+            body: response
+          });
+
+          toast.success("Payment successful 🎉");
+
+          navigate(`/order-confirmation/${order.id}`);
+        },
+
+        prefill: {
+          name: customer.fullName,
+          email: customer.email,
+          contact: customer.mobile
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+    } catch (err) {
+      console.error(err);
+      toast.error("Payment failed");
+    } finally {
       setPlacing(false);
-      navigate(`/order-confirmation/${orderId}`, { state: { order } });
-    }, 1000);
+    }
   };
 
   return (
