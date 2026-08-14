@@ -16,6 +16,8 @@ export async function apiFetch(path, options = {}) {
     body: options.body ? JSON.stringify(options.body) : undefined,
   });
 
+  console.log(BACKEND_URL);
+
   let data = null;
   try {
     data = await res.json();
