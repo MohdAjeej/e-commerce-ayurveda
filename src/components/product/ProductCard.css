@@ -75,9 +75,43 @@
   opacity: 1;
 }
 
+.product-card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  background: var(--primary);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 4px 9px;
+  border-radius: var(--radius-sm);
+}
+
 .product-card__name {
   font-size: 16px;
   font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.product-card__tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--muted);
+  background: var(--surface-alt);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+.product-card__weight {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
   margin-bottom: 8px;
 }
 

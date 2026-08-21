@@ -6,7 +6,7 @@ import Reveal from "../components/common/Reveal";
 import QuantityStepper from "../components/common/QuantityStepper";
 import { getProductById } from "../data/products";
 import { useCart } from "../context/CartContext";
-import { formatPrice } from "../utils/formatPrice";
+import { formatPrice, getDiscountPercent } from "../utils/formatPrice";
 import "./ProductDetail.css";
 
 export default function ProductDetail() {
@@ -34,6 +34,7 @@ export default function ProductDetail() {
 
   const images = product.images && product.images.length > 0 ? product.images : [product.image];
   const activeImage = images[activeIndex] || images[0];
+  const discountPercent = getDiscountPercent(product.price, product.mrp);
 
   const handleAddToCart = () => {
     setAdding(true);
@@ -56,6 +57,7 @@ export default function ProductDetail() {
         <div className="product-detail__grid">
           <Reveal className="product-detail__gallery">
             <div className="product-detail__main-image">
+              {discountPercent > 0 && <span className="product-detail__badge">{discountPercent}% OFF</span>}
               <PlaceholderImage image={activeImage} alt={product.name} />
             </div>
 
@@ -78,6 +80,8 @@ export default function ProductDetail() {
 
           <Reveal className="product-detail__info" delay={120}>
             <h1 className="product-detail__name">{product.name}</h1>
+
+            {product.weight && <span className="product-detail__weight">{product.weight}</span>}
 
             <div className="product-detail__price-row">
               <span className="product-detail__price">{formatPrice(product.price)}</span>

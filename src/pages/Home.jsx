@@ -1,6 +1,7 @@
 import Hero from "../components/sections/Hero";
 import FounderSection from "../components/sections/FounderSection";
 import ProductsSection from "../components/sections/ProductsSection";
+import GiftSection from "../components/sections/GiftSection";
 import WellnessSection from "../components/sections/WellnessSection";
 import TestimonialSection from "../components/sections/TestimonialSection";
 import AyurvedaSection from "../components/sections/AyurvedaSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <FounderSection />
       <ProductsSection />
+      <GiftSection />
       <WellnessSection />
       <TestimonialSection />
       <AyurvedaSection />
